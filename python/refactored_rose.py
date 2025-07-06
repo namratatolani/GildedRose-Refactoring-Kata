@@ -31,6 +31,8 @@ class GildedRose(object):
             # "Aged Brie" actually increases in Quality the older it gets
             elif item.name == "Aged Brie":
                 item.quality += 1
+                if item.sell_in <= 0:
+                    item.quality += 1
             # Once the sell by date has passed, Quality degrades twice as fast
             elif item.sell_in <= 0 and item.name != "Sulfuras, Hand of Ragnaros":
                 item.quality -= 2
