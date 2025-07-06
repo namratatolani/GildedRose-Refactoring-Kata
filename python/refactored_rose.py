@@ -16,18 +16,9 @@ class GildedRose(object):
         
         for item in self.items:
             # At the end of each day our system lowers both values for every item
-            item.sell_in -= 1
-            item.quality -= 1
-            # Once the sell by date has passed, Quality degrades twice as fast
-            if item.sell_in < 0:
-                item.quality -= 1
-            # "Aged Brie" actually increases in Quality the older it gets
-            if item.name == "Aged Brie":
-                item.quality += 1
-            # "Sulfuras", being a legendary item, never has to be sold or decreases in 
-            if item.name == "Sulfuras, Hand of Ragnaros":
-                item.quality = 80
-                item.sell_in = 0
+            # "Sulfuras", being a legendary item, never has to be sold or decreases in Quality
+            if item.name != "Sulfuras, Hand of Ragnaros":
+                item.sell_in -= 1
             # "Backstage passes", like aged brie, increases in Quality as its SellIn value approaches;
             # Quality increases by 2 when there are 10 days or less and by 3 when there are 5 days or less but
             # Quality drops to 0 after the concert
@@ -40,6 +31,15 @@ class GildedRose(object):
                     item.quality += 2
                 else:
                     item.quality += 1
+            # "Aged Brie" actually increases in Quality the older it gets
+            if item.name == "Aged Brie":
+                item.quality += 1
+            elif item.name != "Sulfuras, Hand of Ragnaros":
+                item.quality -= 1
+            # Once the sell by date has passed, Quality degrades twice as fast
+            if item.sell_in < 0 and item.name != "Sulfuras, Hand of Ragnaros":
+                item.quality -= 1
+            
             # "Conjured" items degrade in Quality twice as fast as normal items
             if item.name.startswith("Conjured"):
                 item.quality -= 2
