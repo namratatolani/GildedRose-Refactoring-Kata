@@ -15,8 +15,6 @@ class GildedRose(object):
     def update_quality(self):
         
         for item in self.items:
-            # The Quality of an item is never more than 50
-            # if item.quality < 50:
             # "Backstage passes", like aged brie, increases in Quality as its SellIn value approaches;
             # Quality increases by 2 when there are 10 days or less and by 3 when there are 5 days or less but
             # Quality drops to 0 after the concert
@@ -43,8 +41,8 @@ class GildedRose(object):
                 item.quality -= 2
             # The Quality of an item is never negative
             item.quality = max(item.quality, 0)
-            # if item.quality > 50:
-            #     item.quality = 50
+            # The Quality of an item is never more than 50
+            item.quality = min(item.quality, 50)
             # At the end of each day our system lowers both values for every item
             # "Sulfuras", being a legendary item, never has to be sold or decreases in Quality
             if item.name != "Sulfuras, Hand of Ragnaros":
