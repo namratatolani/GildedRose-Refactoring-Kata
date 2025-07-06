@@ -43,11 +43,11 @@ class GildedRose(object):
                 item.quality -= 2
             # The Quality of an item is never negative
             item.quality = max(item.quality, 0)
-            # The Quality of an item is never more than 50
-            item.quality = min(item.quality, 50)
             # At the end of each day our system lowers both values for every item
             # "Sulfuras", being a legendary item, never has to be sold or decreases in Quality
             if item.name != "Sulfuras, Hand of Ragnaros":
                 item.sell_in -= 1
+                # The Quality of an item is never more than 50
+                item.quality = min(item.quality, 50)
 
         
