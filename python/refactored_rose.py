@@ -38,11 +38,11 @@ class GildedRose(object):
                 item.quality -= 2
             elif item.name != "Sulfuras, Hand of Ragnaros" and not item.name.startswith("Conjured"):
                 item.quality -= 1
-            
-            
             # "Conjured" items degrade in Quality twice as fast as normal items
             if item.name.startswith("Conjured"):
                 item.quality -= 2
+            # The Quality of an item is never negative
+            item.quality = max(item.quality, 0)
             # if item.quality > 50:
             #     item.quality = 50
             # At the end of each day our system lowers both values for every item
