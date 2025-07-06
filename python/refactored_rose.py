@@ -6,27 +6,6 @@ class Item:
 
     def __repr__(self):
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
-# Your task is to add the new feature to our system so that 
-# we can begin selling a new category of items
-# First an introduction to our system:
-# All items have a SellIn value which denotes the number of days we have to sell the items
-# All items have a Quality value which denotes how valuable the item is
-# At the end of each day our system lowers both values for every item
-# Once the sell by date has passed, Quality degrades twice as fast
-# The Quality of an item is never negative
-# "Aged Brie" actually increases in Quality the older it gets
-# The Quality of an item is never more than 50
-# "Sulfuras", being a legendary item, never has to be sold or decreases in
-# "Backstage passes", like aged brie, increases in Quality as its SellIn value approaches;
-# Quality increases by 2 when there are 10 days or less and by 3 when there are 5 days or less but
-# Quality drops to 0 after the concert
-# We have recently signed a supplier of conjured items. This requires an update to our system:
-# "Conjured" items degrade in Quality twice as fast as normal items
-# Feel free to make any changes to the UpdateQuality method and add any new code as long as everything still works correctly. However, do not alter the Item class or Items property.
-# doesn't believe in shared code ownership (you can make the UpdateQuality method and Items property static
-# Just for clarification, an item can never have its Quality increase above 50, however "Sulfuras" is a legendary item and as such its Quality is 80 and it never alters.
-# testcases to validate the refactored code in pytest format:
-
 
 class GildedRose(object):
 
@@ -36,6 +15,12 @@ class GildedRose(object):
     def update_quality(self):
         
         for item in self.items:
+            # At the end of each day our system lowers both values for every item
             item.sell_in -= 1
             item.quality -= 1
+            # Once the sell by date has passed, Quality degrades twice as fast
+            if item.sell_in < 0:
+                item.quality -= 1
+            
 
+        
